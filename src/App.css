@@ -880,3 +880,15 @@ textarea.form-input {
     gap: 25px;
   }
 }
+
+.hero-resume-btn {
+  transition: all 0.3s ease;
+}
+
+.hero-resume-btn:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.1) 100%) !important;
+  border-color: rgba(59, 130, 246, 0.6) !important;
+  color: #fff !important;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3) !important;
+  transform: translateY(-2px);
+}

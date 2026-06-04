@@ -901,7 +901,7 @@ function App() {
             Developing responsive systems that merge computer vision, vector search logic, and geo-hazard warnings for human-centered impacts.
           </p>
 
-          <div className="hero-btns">
+          <div className="hero-btns" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px' }}>
             <button
               className="btn-neon clickable"
               onClick={() => scrollToSection('projects')}
@@ -923,6 +923,27 @@ function App() {
             >
               ABOUT ME
             </button>
+            <a
+              href="/Krishna_Gupta_Resume.pdf"
+              download="Krishna_Gupta_Resume.pdf"
+              style={{
+                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%)',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+                padding: '14px 32px',
+                borderRadius: '10px',
+                fontWeight: 600,
+                color: '#3b82f6',
+                fontSize: '15px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                textDecoration: 'none',
+                boxShadow: '0 0 15px rgba(59, 130, 246, 0.1)'
+              }}
+              className="clickable hero-resume-btn"
+            >
+              <FileText size={16} /> DOWNLOAD RESUME
+            </a>
           </div>
 
           <div className="hero-metrics">
@@ -1012,10 +1033,6 @@ function App() {
               <div className="certification-item" style={{ borderLeft: '3px solid #fff', paddingLeft: '15px' }}>
                 <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>Git & GitHub</h4>
                 <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Source branches control, merge conflict resolutions, and project workflows.</p>
-              </div>
-              <div className="certification-item" style={{ borderLeft: '3px solid #3b82f6', paddingLeft: '15px' }}>
-                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>Data Structures (DSA)</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Linear & non-linear structure operations and search-sort efficiency tracking.</p>
               </div>
             </div>
           </div>
@@ -1221,14 +1238,6 @@ function App() {
               </div>
 
               <div className="socials-column">
-                <a href="/Krishna_Gupta_Resume.pdf" download="Krishna_Gupta_Resume.pdf" className="social-btn resume clickable">
-                  <FileText size={22} style={{ color: '#3b82f6' }} />
-                  <div>
-                    <div style={{ fontSize: '15px', fontWeight: 'bold' }}>Download Resume</div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>PDF Format / 1-Page Summary</div>
-                  </div>
-                  <span>GET CV 📥</span>
-                </a>
 
                 <a href="https://github.com/KrishnaGupta-coder" target="_blank" rel="noopener noreferrer" className="social-btn github clickable">
                   <Github size={22} style={{ color: '#fff' }} />
