@@ -1,4 +1,4 @@
-# 🌌 Interactive 3D Portfolio — Next-Gen AI & HCI Interfaces
+# Interactive 3D Portfolio — Next-Gen AI & HCI Interfaces
 
 An immersive, cyber-themed interactive portfolio built using **React, Vite, Three.js, and Framer Motion**. It showcases cutting-edge human-computer interaction (HCI) designs, deep learning tools, and automated system simulations.
 
