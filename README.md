@@ -100,4 +100,4 @@ To connect the contact form to your own email address:
 ## 🧑‍💻 Developer Context
 * **Developer**: Krishna Gupta
 * **Education**: B.Tech in Artificial Intelligence & Data Science, Arya College of Engineering & IT (2024 - 2028).
-* **Focus**: Deep Learning, Computer Vision, HCI, Vector DBs (Qdrant).
+* **Focus**: Machine Learning, Computer Vision, HCI, Vector DBs (Qdrant).
