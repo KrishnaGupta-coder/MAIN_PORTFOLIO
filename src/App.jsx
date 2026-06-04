@@ -1020,7 +1020,7 @@ function App() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '25px' }}>
               <div className="certification-item" style={{ borderLeft: '3px solid var(--neon-teal)', paddingLeft: '15px' }}>
                 <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>Machine Learning</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Neural architectures, model evaluation, and regression optimization.</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Model evaluation, data visualization, predictive analytics, and regression optimization.</p>
               </div>
               <div className="certification-item" style={{ borderLeft: '3px solid var(--neon-purple)', paddingLeft: '15px' }}>
                 <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>UI/UX Design</h4>
