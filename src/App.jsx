@@ -4,7 +4,7 @@ import {
   Cpu, Sparkles, Code2, Database, Hand, Brain, ExternalLink,
   X, Mail, Play, Pause, VolumeX, Volume2, Tv, CheckCircle2,
   ChevronRight, Eye, Info, Phone, Terminal as TerminalIcon,
-  ShieldAlert, Users, Send, FileText
+  ShieldAlert, Users, Send, FileText, Menu
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
@@ -110,6 +110,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('hero');
   const [selectedProject, setSelectedProject] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Custom mouse states
   const mouse = useRef({ x: 0, y: 0, rx: 0, ry: 0 });
@@ -860,10 +861,18 @@ function App() {
 
       {/* Floating Navbar */}
       <nav className="navbar">
-        <div className="logo-text clickable" onClick={() => scrollToSection('hero')}>
+        <div className="logo-text clickable" onClick={() => { scrollToSection('hero'); setMenuOpen(false); }}>
           KRISHNA GUPTA
         </div>
-        <ul className="nav-links">
+        {/* Mobile menu toggle */}
+        <button
+          className="nav-toggle-btn clickable"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+        <ul className={`nav-links ${menuOpen ? 'active' : ''}`}>
           {['hero', 'about', 'hackathons', 'projects', 'contact'].map((section) => (
             <li key={section}>
               <a
@@ -872,6 +881,7 @@ function App() {
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection(section);
+                  setMenuOpen(false);
                 }}
               >
                 {section === 'hackathons' ? 'EXPERIENCE' : section.toUpperCase()}
