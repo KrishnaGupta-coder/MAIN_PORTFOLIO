@@ -4,7 +4,7 @@ import {
   Cpu, Sparkles, Code2, Database, Hand, Brain, ExternalLink,
   X, Mail, Play, Pause, VolumeX, Volume2, Tv, CheckCircle2,
   ChevronRight, Eye, Info, Phone, Terminal as TerminalIcon,
-  ShieldAlert, Users, Send
+  ShieldAlert, Users, Send, FileText
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
@@ -67,29 +67,29 @@ const PROJECTS = [
   }
 ];
 
-// Hackathons & Achievements Data
+// Professional Experience & Accomplishments
 const HACKATHONS = [
   {
-    role: 'Event Coordinator & Participant',
-    name: 'WCHL Hackathon',
-    desc: 'Organized core logistical tracks and milestones for 100+ active coders, while contributing to open-source software structures during parallel hacking segments.'
+    role: 'Core Team Organizer',
+    name: "Hacker's Unity Community",
+    desc: "Coordinated operational milestones, registration databases, and on-ground track routing for major hackathons including the World Computer Hacker League (WCHL) and HackStorm Summit, managing workflows for 100+ active coders."
+  },
+  {
+    role: 'Team Lead & SIH 2025 Solver',
+    name: 'Team Synapse',
+    desc: 'Led the development of automated computer vision and machine learning pipelines for hazard mitigation and high-speed prototype classifications.'
   },
   {
     role: 'Lead Contributor & Solver',
     name: 'Blockchain Hackathon',
-    desc: 'Designed and deployed decentralized smart ledger interfaces to automate submission workflows and student ledger queries on-chain.'
-  },
-  {
-    role: 'Team Lead / SIH 2025 Candidate',
-    name: 'HackStorm Hackathon',
-    desc: 'Led the development of automated computer vision pipelines, achieving rapid prototype categorization speeds and optimizing data routing configurations.'
+    desc: 'Engineered and deployed decentralized smart ledger verification layers, automating academic workflow routing and cryptographic credential queries.'
   }
 ];
 
 // Tech Skills for 3D Tag Sphere
 const SKILLS = [
   'Python', 'C++', 'C', 'PyTorch', 'TensorFlow',
-  'OpenCV', 'Qdrant', 'NumPy', 'HTML5', 'CSS3',
+  'OpenCV', 'Computer Vision', 'Qdrant', 'NumPy', 'HTML5', 'CSS3',
   'JavaScript', 'React.js', 'Git', 'GitHub', 'VS Code', 'Vercel'
 ];
 
@@ -874,7 +874,7 @@ function App() {
                   scrollToSection(section);
                 }}
               >
-                {section.toUpperCase()}
+                {section === 'hackathons' ? 'EXPERIENCE' : section.toUpperCase()}
               </a>
             </li>
           ))}
@@ -991,6 +991,35 @@ function App() {
             </div>
           </div>
 
+          {/* Professional Certifications Panel */}
+          <div className="glass-panel" style={{ marginTop: '40px', padding: '40px', width: '100%', textAlign: 'left' }}>
+            <h3 className="about-title" style={{ fontSize: '28px', marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Sparkles size={22} className="glow-text-teal" /> Professional Credentials
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '25px' }}>
+              <div className="certification-item" style={{ borderLeft: '3px solid var(--neon-teal)', paddingLeft: '15px' }}>
+                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>Machine Learning</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Neural architectures, model evaluation, and regression optimization.</p>
+              </div>
+              <div className="certification-item" style={{ borderLeft: '3px solid var(--neon-purple)', paddingLeft: '15px' }}>
+                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>UI/UX Design</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Interface prototyping, wireframing, layouts, and accessibility principles.</p>
+              </div>
+              <div className="certification-item" style={{ borderLeft: '3px solid var(--neon-pink)', paddingLeft: '15px' }}>
+                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>C, C++, & Python</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Object-oriented structures, algorithm designs, and core development paradigms.</p>
+              </div>
+              <div className="certification-item" style={{ borderLeft: '3px solid #fff', paddingLeft: '15px' }}>
+                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>Git & GitHub</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Source branches control, merge conflict resolutions, and project workflows.</p>
+              </div>
+              <div className="certification-item" style={{ borderLeft: '3px solid #3b82f6', paddingLeft: '15px' }}>
+                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>Data Structures (DSA)</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Linear & non-linear structure operations and search-sort efficiency tracking.</p>
+              </div>
+            </div>
+          </div>
+
           {/* Live Hacker Terminal Diagnostic Console */}
           <div className="terminal-widget">
             <div className="terminal-header">
@@ -1028,7 +1057,7 @@ function App() {
           className="timeline-section"
         >
           <div className="section-header">
-            <h2>Hackathons & Accomplishments</h2>
+            <h2>Experience</h2>
             <div className="divider-line" />
           </div>
 
@@ -1192,6 +1221,24 @@ function App() {
               </div>
 
               <div className="socials-column">
+                <a href="/Krishna_Gupta_Resume.pdf" download="Krishna_Gupta_Resume.pdf" className="social-btn resume clickable">
+                  <FileText size={22} style={{ color: '#3b82f6' }} />
+                  <div>
+                    <div style={{ fontSize: '15px', fontWeight: 'bold' }}>Download Resume</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>PDF Format / 1-Page Summary</div>
+                  </div>
+                  <span>GET CV 📥</span>
+                </a>
+
+                <a href="https://github.com/KrishnaGupta-coder" target="_blank" rel="noopener noreferrer" className="social-btn github clickable">
+                  <Github size={22} style={{ color: '#fff' }} />
+                  <div>
+                    <div style={{ fontSize: '15px', fontWeight: 'bold' }}>GitHub</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>KrishnaGupta-coder</div>
+                  </div>
+                  <span>EXPLORE ↗</span>
+                </a>
+
                 <a href="https://linkedin.com/in/krishna-gupta333" target="_blank" className="social-btn linkedin clickable">
                   <Linkedin size={22} style={{ color: '#0077b5' }} />
                   <div>
@@ -1199,15 +1246,6 @@ function App() {
                     <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>krishna-gupta333</div>
                   </div>
                   <span>CONNECT ↗</span>
-                </a>
-
-                <a href="https://instagram.com/1k.r.i.s.h.n.a._" target="_blank" className="social-btn instagram clickable">
-                  <Instagram size={22} style={{ color: '#e4405f' }} />
-                  <div>
-                    <div style={{ fontSize: '15px', fontWeight: 'bold' }}>Instagram</div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>1k.r.i.s.h.n.a._</div>
-                  </div>
-                  <span>FOLLOW ↗</span>
                 </a>
 
                 <a href="mailto:16krishnagupta06@gmail.com" className="social-btn email clickable">
@@ -1226,6 +1264,15 @@ function App() {
                     <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>+91 8955915536</div>
                   </div>
                   <span>DIAL 📞</span>
+                </a>
+
+                <a href="https://instagram.com/1k.r.i.s.h.n.a._" target="_blank" className="social-btn instagram clickable">
+                  <Instagram size={22} style={{ color: '#e4405f' }} />
+                  <div>
+                    <div style={{ fontSize: '15px', fontWeight: 'bold' }}>Instagram</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>1k.r.i.s.h.n.a._</div>
+                  </div>
+                  <span>FOLLOW ↗</span>
                 </a>
               </div>
             </div>

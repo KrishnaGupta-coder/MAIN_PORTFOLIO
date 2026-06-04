@@ -398,7 +398,7 @@
 
 .timeline-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 40px;
 }
 
@@ -441,7 +441,7 @@
 /* Projects Grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
   gap: 40px;
   max-width: 1200px;
   width: 100%;
@@ -826,6 +826,18 @@ textarea.form-input {
   border-color: var(--neon-purple);
   background: rgba(189, 0, 255, 0.1);
   box-shadow: 0 10px 25px rgba(189, 0, 255, 0.2);
+}
+
+.social-btn.github:hover {
+  border-color: var(--text-bright);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+}
+
+.social-btn.resume:hover {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.15);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);
 }
 
 /* Responsive adjustments */
