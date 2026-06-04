@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import {
-  Cpu, Sparkles, Code2, Database, Hand, Brain, ExternalLink,
-  X, Mail, Play, Pause, VolumeX, Volume2, Tv, CheckCircle2,
-  ChevronRight, Eye, Info, Phone, Terminal as TerminalIcon,
-  ShieldAlert, Users, Send, FileText, Menu
+import { 
+  Cpu, Sparkles, Code2, Database, Hand, Brain, ExternalLink, 
+  X, Mail, Play, Pause, VolumeX, Volume2, Tv, CheckCircle2, 
+  ChevronRight, Eye, Info, Phone, Terminal as TerminalIcon, 
+  ShieldAlert, Users, Send
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
@@ -67,29 +67,29 @@ const PROJECTS = [
   }
 ];
 
-// Professional Experience & Accomplishments
+// Hackathons & Achievements Data
 const HACKATHONS = [
   {
-    role: 'Core Team Organizer',
-    name: "Hacker's Unity Community",
-    desc: "Coordinated operational milestones, registration databases, and on-ground track routing for major hackathons including the World Computer Hacker League (WCHL) and HackStorm Summit, managing workflows for 100+ active coders."
-  },
-  {
-    role: 'Team Lead & SIH 2025 Solver',
-    name: 'Team Synapse',
-    desc: 'Led the development of automated computer vision and machine learning pipelines for hazard mitigation and high-speed prototype classifications.'
+    role: 'Event Coordinator & Participant',
+    name: 'WCHL Hackathon',
+    desc: 'Organized core logistical tracks and milestones for 100+ active coders, while contributing to open-source software structures during parallel hacking segments.'
   },
   {
     role: 'Lead Contributor & Solver',
     name: 'Blockchain Hackathon',
-    desc: 'Engineered and deployed decentralized smart ledger verification layers, automating academic workflow routing and cryptographic credential queries.'
+    desc: 'Designed and deployed decentralized smart ledger interfaces to automate submission workflows and student ledger queries on-chain.'
+  },
+  {
+    role: 'Team Lead / SIH 2025 Candidate',
+    name: 'HackStorm Hackathon',
+    desc: 'Led the development of automated computer vision pipelines, achieving rapid prototype categorization speeds and optimizing data routing configurations.'
   }
 ];
 
 // Tech Skills for 3D Tag Sphere
 const SKILLS = [
-  'Python', 'C++', 'C', 'PyTorch', 'TensorFlow',
-  'OpenCV', 'Computer Vision', 'Qdrant', 'NumPy', 'HTML5', 'CSS3',
+  'Python', 'C++', 'C', 'PyTorch', 'TensorFlow', 
+  'OpenCV', 'Qdrant', 'AWS', 'NumPy', 'HTML5', 'CSS3', 
   'JavaScript', 'React.js', 'Git', 'GitHub', 'VS Code', 'Vercel'
 ];
 
@@ -110,15 +110,14 @@ function App() {
   const [activeTab, setActiveTab] = useState('hero');
   const [selectedProject, setSelectedProject] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [menuOpen, setMenuOpen] = useState(false);
-
+  
   // Custom mouse states
   const mouse = useRef({ x: 0, y: 0, rx: 0, ry: 0 });
   const threeCanvasRef = useRef(null);
   const skillCanvasRef = useRef(null);
   const pointerCanvasRef = useRef(null);
   const formLogsRef = useRef(null);
-
+  
   // Hacker Terminal States
   const [terminalOutput, setTerminalOutput] = useState([]);
   const [terminalIndex, setTerminalIndex] = useState(0);
@@ -208,21 +207,21 @@ function App() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
-
+    
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-
+    
     let particles = [];
     const colorCycle = ['#00f5d4', '#bd00ff', '#ff007f'];
     let colorIdx = 0;
-
+    
     const drawParticles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+      
       // Spawn new particle
       if (Math.random() < 0.8) {
         colorIdx = (colorIdx + 1) % colorCycle.length;
@@ -237,16 +236,16 @@ function App() {
           decay: Math.random() * 0.02 + 0.012
         });
       }
-
+      
       // Update particles
       particles = particles.filter(p => {
         p.x += p.vx;
         p.y += p.vy;
         p.alpha -= p.decay;
         p.size *= 0.97;
-
+        
         if (p.alpha <= 0) return false;
-
+        
         ctx.save();
         ctx.globalAlpha = p.alpha;
         ctx.shadowBlur = 12;
@@ -258,12 +257,12 @@ function App() {
         ctx.restore();
         return true;
       });
-
+      
       animationFrameId = requestAnimationFrame(drawParticles);
     };
-
+    
     drawParticles();
-
+    
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resizeCanvas);
@@ -273,14 +272,14 @@ function App() {
   // 2. Three.js Background Constellation
   useEffect(() => {
     if (!threeCanvasRef.current) return;
-
+    
     const width = window.innerWidth;
     const height = window.innerHeight;
-
+    
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
     camera.position.z = 240;
-
+    
     const renderer = new THREE.WebGLRenderer({
       canvas: threeCanvasRef.current,
       alpha: true,
@@ -288,39 +287,39 @@ function App() {
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
+    
     const particleCount = 200;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
     const velocities = [];
-
+    
     const colorPalette = [
       new THREE.Color('#00f5d4'),
       new THREE.Color('#bd00ff'),
       new THREE.Color('#ff007f')
     ];
-
+    
     for (let i = 0; i < particleCount; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 450;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 450;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 250;
-
+      
       const c = colorPalette[Math.floor(Math.random() * colorPalette.length)];
       colors[i * 3] = c.r;
       colors[i * 3 + 1] = c.g;
       colors[i * 3 + 2] = c.b;
-
+      
       velocities.push({
         x: (Math.random() - 0.5) * 0.16,
         y: (Math.random() - 0.5) * 0.16,
         z: (Math.random() - 0.5) * 0.1
       });
     }
-
+    
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
+    
     const material = new THREE.PointsMaterial({
       size: 4.5,
       vertexColors: true,
@@ -328,10 +327,10 @@ function App() {
       opacity: 0.8,
       blending: THREE.AdditiveBlending
     });
-
+    
     const particleSystem = new THREE.Points(geometry, material);
     scene.add(particleSystem);
-
+    
     const lineGeometry = new THREE.BufferGeometry();
     const lineMaterial = new THREE.LineBasicMaterial({
       color: 0xbd00ff,
@@ -350,30 +349,30 @@ function App() {
       renderer.setSize(w, h);
     };
     window.addEventListener('resize', handleResize);
-
+    
     let animationFrameId;
     const animate = () => {
       const posArr = geometry.attributes.position.array;
-
+      
       for (let i = 0; i < particleCount; i++) {
         posArr[i * 3] += velocities[i].x;
         posArr[i * 3 + 1] += velocities[i].y;
         posArr[i * 3 + 2] += velocities[i].z;
-
+        
         if (Math.abs(posArr[i * 3]) > 250) velocities[i].x *= -1;
         if (Math.abs(posArr[i * 3 + 1]) > 250) velocities[i].y *= -1;
         if (Math.abs(posArr[i * 3 + 2]) > 150) velocities[i].z *= -1;
       }
       geometry.attributes.position.needsUpdate = true;
-
+      
       const linePositions = [];
       for (let i = 0; i < particleCount; i++) {
         for (let j = i + 1; j < particleCount; j++) {
           const dx = posArr[i * 3] - posArr[j * 3];
           const dy = posArr[i * 3 + 1] - posArr[j * 3 + 1];
           const dz = posArr[i * 3 + 2] - posArr[j * 3 + 2];
-          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
+          const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+          
           if (dist < 60) {
             linePositions.push(posArr[i * 3], posArr[i * 3 + 1], posArr[i * 3 + 2]);
             linePositions.push(posArr[j * 3], posArr[j * 3 + 1], posArr[j * 3 + 2]);
@@ -385,17 +384,17 @@ function App() {
 
       particleSystem.rotation.y += 0.0006;
       particleSystem.rotation.x += 0.0003;
-
+      
       camera.position.x += (mouse.current.rx * 55 - camera.position.x) * 0.05;
       camera.position.y += (mouse.current.ry * 55 - camera.position.y) * 0.05;
       camera.lookAt(scene.position);
-
+      
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
     };
-
+    
     animate();
-
+    
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
@@ -409,21 +408,21 @@ function App() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
-
+    
     const width = canvas.offsetWidth;
     const height = canvas.offsetHeight;
     canvas.width = width;
     canvas.height = height;
-
+    
     const center = { x: width / 2, y: height / 2 };
     const radius = Math.min(width, height) * 0.35;
-
+    
     // Skill tags 3D coordinates configuration
     let tags = SKILLS.map((skill, idx) => {
       const k = -1 + (2 * (idx + 1) - 1) / SKILLS.length;
       const theta = Math.acos(k);
       const phi = Math.sqrt(SKILLS.length * Math.PI) * theta;
-
+      
       return {
         text: skill,
         x: radius * Math.sin(theta) * Math.cos(phi),
@@ -431,10 +430,10 @@ function App() {
         z: radius * Math.cos(theta)
       };
     });
-
+    
     // Generate static 3D points representing standard latitude and longitude rings of the globe sphere
     const globeRings = [];
-
+    
     // Generate 6 latitude circles at specific Z heights for higher grid resolution
     const latZs = [-radius * 0.8, -radius * 0.5, -radius * 0.2, radius * 0.2, radius * 0.5, radius * 0.8];
     latZs.forEach(z => {
@@ -450,7 +449,7 @@ function App() {
       }
       globeRings.push(ringPoints);
     });
-
+    
     // Generate 6 longitude circles rotating around the vertical Y axis
     const longAngles = [0, Math.PI / 6, Math.PI / 3, Math.PI / 2, (2 * Math.PI) / 3, (5 * Math.PI) / 6];
     longAngles.forEach(angle => {
@@ -459,7 +458,7 @@ function App() {
         const theta = (i / 40) * Math.PI * 2;
         const xVal = radius * Math.cos(theta);
         const yVal = radius * Math.sin(theta);
-
+        
         ringPoints.push({
           x: xVal * Math.cos(angle),
           y: yVal,
@@ -468,57 +467,57 @@ function App() {
       }
       globeRings.push(ringPoints);
     });
-
+    
     let rotX = 0.006;
     let rotY = 0.006;
-
+    
     let isDragging = false;
     let startMouse = { x: 0, y: 0 };
-
+    
     const handleDown = (e) => {
       isDragging = true;
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
       startMouse = { x: clientX, y: clientY };
     };
-
+    
     const handleMove = (e) => {
       if (!isDragging) return;
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
       const dx = clientX - startMouse.x;
       const dy = clientY - startMouse.y;
-
+      
       rotY = dx * 0.0005;
       rotX = -dy * 0.0005;
     };
-
+    
     const handleUp = () => {
       isDragging = false;
     };
-
+    
     canvas.addEventListener('mousedown', handleDown);
     canvas.addEventListener('mousemove', handleMove);
     window.addEventListener('mouseup', handleUp);
     canvas.addEventListener('touchstart', handleDown);
     canvas.addEventListener('touchmove', handleMove);
     window.addEventListener('touchend', handleUp);
-
+    
     const renderOrbit = () => {
       ctx.clearRect(0, 0, width, height);
-
+      
       const cosX = Math.cos(rotX);
       const sinX = Math.sin(rotX);
       const cosY = Math.cos(rotY);
       const sinY = Math.sin(rotY);
-
+      
       if (!isDragging) {
         rotX += (0.0025 - rotX) * 0.05;
         rotY += (0.0025 - rotY) * 0.05;
       }
-
+      
       const depth = 380;
-
+      
       // 0. Volumetric Core Glow in the center of the globe
       const coreGlow = ctx.createRadialGradient(center.x, center.y, 0, center.x, center.y, radius * 0.85);
       coreGlow.addColorStop(0, 'rgba(189, 0, 255, 0.09)');
@@ -541,42 +540,42 @@ function App() {
         for (let i = 0; i < ringPoints.length - 1; i++) {
           const pt1 = ringPoints[i];
           const pt2 = ringPoints[i + 1];
-
+          
           const y1_1 = pt1.y * cosX - pt1.z * sinX;
           const z1_1 = pt1.y * sinX + pt1.z * cosX;
           const x2_1 = pt1.x * cosY - z1_1 * sinY;
           const z2_1 = pt1.x * sinY + z1_1 * cosY;
-
+          
           const y1_2 = pt2.y * cosX - pt2.z * sinX;
           const z1_2 = pt2.y * sinX + pt2.z * cosX;
           const x2_2 = pt2.x * cosY - z1_2 * sinY;
           const z2_2 = pt2.x * sinY + z1_2 * cosY;
-
+          
           const scale1 = depth / (depth - z2_1);
           const px1 = center.x + x2_1 * scale1;
           const py1 = center.y + y1_1 * scale1;
-
+          
           const scale2 = depth / (depth - z2_2);
           const px2 = center.x + x2_2 * scale2;
           const py2 = center.y + y1_2 * scale2;
-
+          
           const avgZ = (z2_1 + z2_2) / 2;
           const depthFactor = (avgZ + radius) / (2 * radius); // 0 to 1 (front to back)
-
+          
           ctx.beginPath();
           ctx.moveTo(px1, py1);
           ctx.lineTo(px2, py2);
-
+          
           const baseOpacity = isDragging ? 0.38 : 0.22;
           const opacity = 0.04 + depthFactor * baseOpacity;
-
-          ctx.strokeStyle = rIdx < 6
+          
+          ctx.strokeStyle = rIdx < 6 
             ? `rgba(189, 0, 255, ${opacity})`  // Purple Latitudes
             : `rgba(0, 245, 212, ${opacity})`;   // Teal Longitudes
-
+          
           ctx.lineWidth = 0.4 + depthFactor * 1.8; // Thicker in front, fading line width in back
           ctx.stroke();
-
+          
           // Draw intersection dots at intervals
           if (i % 8 === 0 && avgZ > 0) {
             ctx.save();
@@ -587,7 +586,7 @@ function App() {
             ctx.restore();
           }
         }
-
+        
         // Persist rotations for coordinates
         ringPoints.forEach(pt => {
           const y1 = pt.y * cosX - pt.z * sinX;
@@ -599,22 +598,22 @@ function App() {
           pt.z = z2;
         });
       });
-
+      
       // 2. Draw the skill text tags
       const updatedTags = tags.map(tag => {
         const y1 = tag.y * cosX - tag.z * sinX;
         const z1 = tag.y * sinX + tag.z * cosX;
         const x2 = tag.x * cosY - z1 * sinY;
         const z2 = tag.x * sinY + z1 * cosY;
-
+        
         tag.x = x2;
         tag.y = y1;
         tag.z = z2;
-
+        
         const scale = depth / (depth - z2);
         const px = center.x + x2 * scale;
         const py = center.y + y1 * scale;
-
+        
         return {
           text: tag.text,
           px,
@@ -623,9 +622,9 @@ function App() {
           scale
         };
       });
-
+      
       updatedTags.sort((a, b) => a.z - b.z);
-
+      
       // Draw dynamic web lines connecting adjacent tags
       ctx.beginPath();
       for (let i = 0; i < updatedTags.length; i++) {
@@ -633,7 +632,7 @@ function App() {
           const t1 = updatedTags[i];
           const t2 = updatedTags[j];
           const dist = Math.sqrt(Math.pow(t1.px - t2.px, 2) + Math.pow(t1.py - t2.py, 2));
-
+          
           if (dist < 100 && t1.z > 0 && t2.z > 0) {
             ctx.moveTo(t1.px, t1.py);
             ctx.lineTo(t2.px, t2.py);
@@ -643,14 +642,14 @@ function App() {
       ctx.strokeStyle = 'rgba(0, 245, 212, 0.04)';
       ctx.lineWidth = 0.8;
       ctx.stroke();
-
+      
       // Draw tags labels
       updatedTags.forEach(tag => {
         const alpha = Math.min(1.0, Math.max(0.18, (tag.z + radius) / (2 * radius)));
         const fontSize = Math.floor(12 + tag.scale * 4);
-
+        
         ctx.font = `600 ${fontSize}px var(--font-sans)`;
-
+        
         if (tag.z > 20) {
           ctx.fillStyle = `rgba(0, 245, 212, ${alpha})`;
           ctx.shadowBlur = 8;
@@ -663,17 +662,17 @@ function App() {
           ctx.shadowBlur = 4;
           ctx.shadowColor = 'rgba(189, 0, 255, 0.4)';
         }
-
+        
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(tag.text, tag.px, tag.py);
       });
-
+      
       animationFrameId = requestAnimationFrame(renderOrbit);
     };
-
+    
     renderOrbit();
-
+    
     return () => {
       cancelAnimationFrame(animationFrameId);
       canvas.removeEventListener('mousedown', handleDown);
@@ -691,7 +690,7 @@ function App() {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
+    
     if (x < rect.width * 0.3) {
       setDetectedGesture('SWIPE LEFT');
       if (!swipeTrigger) {
@@ -731,7 +730,7 @@ function App() {
   const triggerSdaAlert = () => {
     setSdaActiveAlert(true);
     const timestamp = new Date().toLocaleTimeString();
-
+    
     setSdaBroadcastLogs([
       `[${timestamp}] Initiated early warning broadcast: ${sdaDisasterType}`,
       `[${timestamp}] Targeting danger radius: ${sdaAlertRadius} km`,
@@ -749,10 +748,10 @@ function App() {
       setFormLogs(prev => [...prev, '❌ ERROR: Handshake rejected. Mandatory parameters missing.']);
       return;
     }
-
+    
     setIsTransmitting(true);
     const timestamp = new Date().toLocaleTimeString();
-
+    
     setFormLogs(prev => [
       ...prev,
       `[${timestamp}] Initializing client socket connection...`,
@@ -761,9 +760,9 @@ function App() {
     ]);
 
     // To activate live emails, register a free account on emailjs.com and place your keys here
-    const serviceId = 'service_fqo09ao';
-    const templateId = 'template_t488gf8';
-    const publicKey = 'CB6ZqJCZSkP-2cqKx';
+    const serviceId = 'YOUR_SERVICE_ID';
+    const templateId = 'YOUR_TEMPLATE_ID';
+    const publicKey = 'YOUR_PUBLIC_KEY';
 
     if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
       // Simulate submission & log setup guidance
@@ -787,34 +786,34 @@ function App() {
         serviceId,
         templateId,
         {
-          from_name: formName,
-          reply_to: formEmail,
+          name: formName,
+          email: formEmail,
           message: formMsg
         },
         publicKey
       )
-        .then(() => {
-          const completionTime = new Date().toLocaleTimeString();
-          setFormLogs(prev => [
-            ...prev,
-            `[${completionTime}] Dispatching live socket packet...`,
-            `[${completionTime}] EmailJS API Response: 200 OK`,
-            `[${completionTime}] Transmission completed! Message sent successfully.`
-          ]);
-          setIsTransmitting(false);
-          setFormName('');
-          setFormEmail('');
-          setFormMsg('');
-        })
-        .catch((err) => {
-          const errorTime = new Date().toLocaleTimeString();
-          setFormLogs(prev => [
-            ...prev,
-            `[${errorTime}] ❌ TRANSMISSION FAILURE: Connection refused.`,
-            `[${errorTime}] Error: ${err.text || err.message || 'Unknown network response'}`
-          ]);
-          setIsTransmitting(false);
-        });
+      .then(() => {
+        const completionTime = new Date().toLocaleTimeString();
+        setFormLogs(prev => [
+          ...prev,
+          `[${completionTime}] Dispatching live socket packet...`,
+          `[${completionTime}] EmailJS API Response: 200 OK`,
+          `[${completionTime}] Transmission completed! Message sent successfully.`
+        ]);
+        setIsTransmitting(false);
+        setFormName('');
+        setFormEmail('');
+        setFormMsg('');
+      })
+      .catch((err) => {
+        const errorTime = new Date().toLocaleTimeString();
+        setFormLogs(prev => [
+          ...prev,
+          `[${errorTime}] ❌ TRANSMISSION FAILURE: Connection refused.`,
+          `[${errorTime}] Error: ${err.text || err.message || 'Unknown network response'}`
+        ]);
+        setIsTransmitting(false);
+      });
     }
   };
 
@@ -831,15 +830,15 @@ function App() {
       <div className="aurora-glow-1" />
       <div className="aurora-glow-2" />
       <div className="aurora-glow-3" />
-
+      
       <canvas ref={threeCanvasRef} className="three-canvas" />
       <canvas ref={pointerCanvasRef} className="pointer-canvas" />
 
       {/* Vertical Scroll Progress Tracker (Right sidebar) */}
       <div className="scroll-progress-container">
         <div className="scroll-track-line" />
-        <div
-          className="scroll-track-fill"
+        <div 
+          className="scroll-track-fill" 
           style={{ height: `${scrollProgress}%` }}
         />
         {[
@@ -849,8 +848,8 @@ function App() {
           { id: 'projects', label: 'Projects', class: 'projects-node' },
           { id: 'contact', label: 'Contact', class: 'contact-node' }
         ].map((node) => (
-          <div
-            key={node.id}
+          <div 
+            key={node.id} 
             className={`scroll-node clickable ${node.class} ${activeTab === node.id ? 'active' : ''}`}
             onClick={() => scrollToSection(node.id)}
           >
@@ -861,30 +860,21 @@ function App() {
 
       {/* Floating Navbar */}
       <nav className="navbar">
-        <div className="logo-text clickable" onClick={() => { scrollToSection('hero'); setMenuOpen(false); }}>
+        <div className="logo-text clickable" onClick={() => scrollToSection('hero')}>
           KRISHNA GUPTA
         </div>
-        {/* Mobile menu toggle */}
-        <button
-          className="nav-toggle-btn clickable"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-        <ul className={`nav-links ${menuOpen ? 'active' : ''}`}>
+        <ul className="nav-links">
           {['hero', 'about', 'hackathons', 'projects', 'contact'].map((section) => (
             <li key={section}>
-              <a
-                href={`#${section}`}
+              <a 
+                href={`#${section}`} 
                 className={`nav-link clickable ${activeTab === section ? 'active' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection(section);
-                  setMenuOpen(false);
                 }}
               >
-                {section === 'hackathons' ? 'EXPERIENCE' : section.toUpperCase()}
+                {section.toUpperCase()}
               </a>
             </li>
           ))}
@@ -893,7 +883,7 @@ function App() {
 
       {/* Hero Section */}
       <section id="hero" className="section">
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -902,23 +892,23 @@ function App() {
           <div className="hero-subtitle">
             B.Tech in Artificial Intelligence & Data Science
           </div>
-
+          
           <h1 className="hero-title">
             Engineering <span>Next-Gen</span> AI Interfaces & Automation.
           </h1>
-
+          
           <p className="hero-desc">
             Developing responsive systems that merge computer vision, vector search logic, and geo-hazard warnings for human-centered impacts.
           </p>
-
-          <div className="hero-btns" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px' }}>
-            <button
+          
+          <div className="hero-btns">
+            <button 
               className="btn-neon clickable"
               onClick={() => scrollToSection('projects')}
             >
               EXPLORE PROJECTS
             </button>
-            <button
+            <button 
               style={{
                 background: 'rgba(255, 255, 255, 0.02)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -933,27 +923,6 @@ function App() {
             >
               ABOUT ME
             </button>
-            <a
-              href="/Krishna_Gupta_Resume.pdf"
-              download="Krishna_Gupta_Resume.pdf"
-              style={{
-                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%)',
-                border: '1px solid rgba(59, 130, 246, 0.3)',
-                padding: '14px 32px',
-                borderRadius: '10px',
-                fontWeight: 600,
-                color: '#3b82f6',
-                fontSize: '15px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                textDecoration: 'none',
-                boxShadow: '0 0 15px rgba(59, 130, 246, 0.1)'
-              }}
-              className="clickable hero-resume-btn"
-            >
-              <FileText size={16} /> DOWNLOAD RESUME
-            </a>
           </div>
 
           <div className="hero-metrics">
@@ -971,7 +940,7 @@ function App() {
             </div>
           </div>
         </motion.div>
-
+        
         <div className="scroll-indicator">
           <span>SCROLL DOWN</span>
           <div className="mouse-icon">
@@ -984,7 +953,7 @@ function App() {
 
       {/* About Section */}
       <section id="about" className="section">
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
@@ -1005,7 +974,7 @@ function App() {
               <p className="about-desc">
                 From building high-precision face recognition models mapping millions of vector points in Qdrant, to early alert responders mapping early indicators of hazard, my focus is creating solutions that work at scale.
               </p>
-
+              
               <div className="skills-container">
                 {SKILLS.map((skill, index) => (
                   <span key={index} className="skill-tag">
@@ -1015,35 +984,10 @@ function App() {
                 ))}
               </div>
             </div>
-
+            
             <div className="glass-panel interactive-canvas-card clickable">
               <canvas ref={skillCanvasRef} style={{ width: '100%', height: '100%' }} />
               <div className="canvas-hint">Drag tags to spin 3D skill globe</div>
-            </div>
-          </div>
-
-          {/* Professional Certifications Panel */}
-          <div className="glass-panel" style={{ marginTop: '40px', padding: '40px', width: '100%', textAlign: 'left' }}>
-            <h3 className="about-title" style={{ fontSize: '28px', marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Sparkles size={22} className="glow-text-teal" /> Professional Credentials
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '25px' }}>
-              <div className="certification-item" style={{ borderLeft: '3px solid var(--neon-teal)', paddingLeft: '15px' }}>
-                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>Machine Learning</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Model evaluation, data visualization, predictive analytics, and regression optimization.</p>
-              </div>
-              <div className="certification-item" style={{ borderLeft: '3px solid var(--neon-purple)', paddingLeft: '15px' }}>
-                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>UI/UX Design</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Interface prototyping, wireframing, layouts, and accessibility principles.</p>
-              </div>
-              <div className="certification-item" style={{ borderLeft: '3px solid var(--neon-pink)', paddingLeft: '15px' }}>
-                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>C, C++, & Python</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Object-oriented structures, algorithm designs, and core development paradigms.</p>
-              </div>
-              <div className="certification-item" style={{ borderLeft: '3px solid #fff', paddingLeft: '15px' }}>
-                <h4 style={{ color: 'var(--text-bright)', fontSize: '15px', fontWeight: 'bold' }}>Git & GitHub</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px', lineHeight: '1.5' }}>Source branches control, merge conflict resolutions, and project workflows.</p>
-              </div>
             </div>
           </div>
 
@@ -1076,7 +1020,7 @@ function App() {
 
       {/* Hackathons & Experience Section */}
       <section id="hackathons" className="section">
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
@@ -1084,14 +1028,14 @@ function App() {
           className="timeline-section"
         >
           <div className="section-header">
-            <h2>Experience</h2>
+            <h2>Hackathons & Accomplishments</h2>
             <div className="divider-line" />
           </div>
 
           <div className="timeline-grid">
             {HACKATHONS.map((h, idx) => (
-              <motion.div
-                key={idx}
+              <motion.div 
+                key={idx} 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false }}
@@ -1116,7 +1060,7 @@ function App() {
 
       {/* Projects Section */}
       <section id="projects" className="section">
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
@@ -1133,8 +1077,8 @@ function App() {
 
           <div className="projects-grid">
             {PROJECTS.map((project, idx) => (
-              <motion.div
-                key={project.id}
+              <motion.div 
+                key={project.id} 
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: false }}
@@ -1154,7 +1098,7 @@ function App() {
                   <h3 className="project-name">{project.name}</h3>
                   <p className="project-desc">{project.desc}</p>
                 </div>
-
+                
                 <button className="project-action-btn clickable">
                   <Eye size={16} /> VIEW DETAILS & INTERACTION
                 </button>
@@ -1168,7 +1112,7 @@ function App() {
 
       {/* Upgraded Contact Section */}
       <section id="contact" className="section">
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
@@ -1185,43 +1129,43 @@ function App() {
             <div className="glass-panel contact-form-panel">
               <h3 className="form-title">Send a Transmission</h3>
               <p className="form-subtitle">Initialize secure socket handshake and submit your feedback/inquiry.</p>
-
+              
               <form onSubmit={handleContactSubmit}>
                 <div className="form-group">
                   <label>Ident/Name</label>
-                  <input
-                    type="text"
-                    value={formName}
-                    onChange={(e) => setFormName(e.target.value)}
-                    placeholder="Enter your name..."
+                  <input 
+                    type="text" 
+                    value={formName} 
+                    onChange={(e) => setFormName(e.target.value)} 
+                    placeholder="Enter your name..." 
                     className="form-input clickable"
                     required
                   />
                 </div>
                 <div className="form-group">
                   <label>Email Vector</label>
-                  <input
-                    type="email"
-                    value={formEmail}
-                    onChange={(e) => setFormEmail(e.target.value)}
-                    placeholder="name@domain.com"
+                  <input 
+                    type="email" 
+                    value={formEmail} 
+                    onChange={(e) => setFormEmail(e.target.value)} 
+                    placeholder="name@domain.com" 
                     className="form-input clickable"
                     required
                   />
                 </div>
                 <div className="form-group">
                   <label>Message Content</label>
-                  <textarea
-                    value={formMsg}
-                    onChange={(e) => setFormMsg(e.target.value)}
-                    placeholder="Write details of inquiry..."
+                  <textarea 
+                    value={formMsg} 
+                    onChange={(e) => setFormMsg(e.target.value)} 
+                    placeholder="Write details of inquiry..." 
                     className="form-input clickable"
                     required
                   />
                 </div>
 
-                <button
-                  type="submit"
+                <button 
+                  type="submit" 
                   disabled={isTransmitting}
                   className="btn-neon form-submit-btn clickable"
                 >
@@ -1248,25 +1192,24 @@ function App() {
               </div>
 
               <div className="socials-column">
-
-                <a href="https://github.com/KrishnaGupta-coder" target="_blank" rel="noopener noreferrer" className="social-btn github clickable">
-                  <Github size={22} style={{ color: '#fff' }} />
-                  <div>
-                    <div style={{ fontSize: '15px', fontWeight: 'bold' }}>GitHub</div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>KrishnaGupta-coder</div>
-                  </div>
-                  <span>EXPLORE ↗</span>
-                </a>
-
                 <a href="https://linkedin.com/in/krishna-gupta333" target="_blank" className="social-btn linkedin clickable">
-                  <Linkedin size={22} style={{ color: '#0077b5' }} />
+                  <Linkedin size={22} style={{ color: '#0077b5' }} /> 
                   <div>
                     <div style={{ fontSize: '15px', fontWeight: 'bold' }}>LinkedIn</div>
                     <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>krishna-gupta333</div>
                   </div>
                   <span>CONNECT ↗</span>
                 </a>
-
+                
+                <a href="https://instagram.com/1k.r.i.s.h.n.a._" target="_blank" className="social-btn instagram clickable">
+                  <Instagram size={22} style={{ color: '#e4405f' }} />
+                  <div>
+                    <div style={{ fontSize: '15px', fontWeight: 'bold' }}>Instagram</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>1k.r.i.s.h.n.a._</div>
+                  </div>
+                  <span>FOLLOW ↗</span>
+                </a>
+                
                 <a href="mailto:16krishnagupta06@gmail.com" className="social-btn email clickable">
                   <Mail size={22} style={{ color: 'var(--neon-teal)' }} />
                   <div>
@@ -1275,7 +1218,7 @@ function App() {
                   </div>
                   <span>WRITE ⚡</span>
                 </a>
-
+                
                 <a href="tel:8955915536" className="social-btn phone clickable">
                   <Phone size={22} style={{ color: 'var(--neon-purple)' }} />
                   <div>
@@ -1283,15 +1226,6 @@ function App() {
                     <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>+91 8955915536</div>
                   </div>
                   <span>DIAL 📞</span>
-                </a>
-
-                <a href="https://instagram.com/1k.r.i.s.h.n.a._" target="_blank" className="social-btn instagram clickable">
-                  <Instagram size={22} style={{ color: '#e4405f' }} />
-                  <div>
-                    <div style={{ fontSize: '15px', fontWeight: 'bold' }}>Instagram</div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>1k.r.i.s.h.n.a._</div>
-                  </div>
-                  <span>FOLLOW ↗</span>
                 </a>
               </div>
             </div>
@@ -1302,7 +1236,7 @@ function App() {
       {/* Interactive Modal Details Overlay */}
       <AnimatePresence>
         {selectedProject && (
-          <motion.div
+          <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -1313,7 +1247,7 @@ function App() {
               setSdaActiveAlert(false);
             }}
           >
-            <motion.div
+            <motion.div 
               initial={{ scale: 0.9, y: 30 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 30 }}
@@ -1321,8 +1255,8 @@ function App() {
               className="glass-panel modal-content"
               onClick={(e) => e.stopPropagation()}
             >
-              <button
-                className="close-btn clickable"
+              <button 
+                className="close-btn clickable" 
                 onClick={() => {
                   setSelectedProject(null);
                   setSimActive(false);
@@ -1338,7 +1272,7 @@ function App() {
               <h2 className="project-name" style={{ fontSize: '36px', marginTop: '10px' }}>
                 {selectedProject.name}
               </h2>
-
+              
               <div style={{ display: 'flex', gap: '10px', margin: '15px 0' }}>
                 {selectedProject.tech.map((t, idx) => (
                   <span key={idx} className="tech-badge" style={{ fontSize: '12px', padding: '4px 10px' }}>
@@ -1356,7 +1290,7 @@ function App() {
                 <div className="gesture-simulator-panel">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h4 className="simulator-title" style={{ color: 'var(--neon-teal)' }}>🖐️ ZeroTouchSec Interactive Simulator</h4>
-                    <button
+                    <button 
                       className="btn-neon clickable"
                       style={{ padding: '4px 12px', fontSize: '12px' }}
                       onClick={() => setSimActive(prev => !prev)}
@@ -1364,9 +1298,9 @@ function App() {
                       {simActive ? 'DISABLE SIMULATION' : 'LAUNCH SIMULATOR'}
                     </button>
                   </div>
-
+                  
                   {simActive ? (
-                    <div
+                    <div 
                       className="simulation-zone clickable"
                       onMouseMove={handleSimulatorMouseMove}
                       onMouseLeave={handleSimulatorMouseLeave}
@@ -1380,7 +1314,7 @@ function App() {
                         </p>
                       </div>
 
-                      <div
+                      <div 
                         className="glass-panel"
                         style={{
                           width: '280px',
@@ -1391,7 +1325,7 @@ function App() {
                         }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                          <div
+                          <div 
                             style={{
                               width: '50px',
                               height: '50px',
@@ -1431,7 +1365,7 @@ function App() {
                       </p>
                     </div>
                   )}
-
+                  
                   <div className="gesture-status-bar">
                     <span>Virtual Pipeline: <span className="status-value">Ready</span></span>
                     <span>FPS: <span className="status-value">30.0</span></span>
@@ -1443,9 +1377,9 @@ function App() {
               {selectedProject.id === 'attendance' && (
                 <div className="gesture-simulator-panel" style={{ border: '1px solid rgba(189, 0, 255, 0.2)' }}>
                   <h4 className="simulator-title" style={{ color: '#bd00ff' }}>📊 AI Campus Attendance Tracker Console</h4>
-
+                  
                   <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '15px', marginTop: '15px' }}>
-                    <div
+                    <div 
                       style={{
                         height: '180px',
                         background: '#020308',
@@ -1458,7 +1392,7 @@ function App() {
                         overflow: 'hidden'
                       }}
                     >
-                      <div
+                      <div 
                         style={{
                           width: '100px',
                           height: '100px',
@@ -1492,8 +1426,8 @@ function App() {
                         </div>
                       </div>
 
-                      <div
-                        className="glass-panel"
+                      <div 
+                        className="glass-panel" 
                         style={{
                           padding: '10px',
                           border: '1px solid rgba(189, 0, 255, 0.15)',
@@ -1516,13 +1450,13 @@ function App() {
               {selectedProject.id === 'sda' && (
                 <div className="gesture-simulator-panel" style={{ border: '1px solid rgba(255, 0, 127, 0.2)' }}>
                   <h4 className="simulator-title" style={{ color: '#ff007f' }}>🚨 Smart Disaster Agent Warning Broadcast Panel</h4>
-
+                  
                   <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: '20px', marginTop: '15px' }}>
                     <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       <div>
                         <label style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Select Hazard Category</label>
-                        <select
-                          value={sdaDisasterType}
+                        <select 
+                          value={sdaDisasterType} 
                           onChange={(e) => setSdaDisasterType(e.target.value)}
                           style={{
                             width: '100%',
@@ -1544,18 +1478,18 @@ function App() {
 
                       <div>
                         <label style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Danger Radius: {sdaAlertRadius} km</label>
-                        <input
-                          type="range"
-                          min="5"
-                          max="50"
-                          value={sdaAlertRadius}
+                        <input 
+                          type="range" 
+                          min="5" 
+                          max="50" 
+                          value={sdaAlertRadius} 
                           onChange={(e) => setSdaAlertRadius(e.target.value)}
                           style={{ width: '100%', marginTop: '4px' }}
                           className="clickable"
                         />
                       </div>
 
-                      <button
+                      <button 
                         onClick={triggerSdaAlert}
                         className="btn-neon clickable"
                         style={{ padding: '10px', fontSize: '12px', border: '1px solid var(--neon-pink)', color: '#fff', width: '100%' }}
@@ -1564,7 +1498,7 @@ function App() {
                       </button>
                     </div>
 
-                    <div
+                    <div 
                       style={{
                         background: '#020308',
                         border: '1px solid rgba(255, 255, 255, 0.05)',
